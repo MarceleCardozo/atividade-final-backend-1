@@ -1,4 +1,4 @@
-import express from "express";
+import express, { request, response } from "express";
 import bcrypt from "bcrypt";
 
 const app = express();
@@ -26,12 +26,22 @@ app.post(
   validateEnteredDataForAccountCreation,
   (request, response) => {
     const user = request.body;
-    users.push({
-      name: user.name,
-      email: user.email,
-      password: user.password,
+    const saltRounds = 10;
+
+    //Criptografando senha com bcrypt
+    bcrypt.hash(user.password, saltRounds, function (err, hash) {
+      if (hash) {
+        users.push({
+          id: Math.floor(Math.random() * 6767),
+          name: user.name,
+          email: user.email,
+          password: hash,
+        });
+        return response.status(201).json("Conta criada com sucesso!");
+      } else {
+        return response.status(400).json("Ocorreu um erro:" + err);
+      }
     });
-    return response.status(201).json("Conta criada com sucesso!");
   }
 );
 
