@@ -23,7 +23,7 @@ function emailValidator(request, response, next) {
   const email = request.body.email;
 
   if (users.some((user) => user.email === email)) {
-    return response.status(402).json("O endereço de email digitado já existe!");
+    return response.status(409).json("O endereço de email digitado já existe!");
   }
 
   next();
