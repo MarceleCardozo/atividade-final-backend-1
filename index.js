@@ -83,9 +83,24 @@ app.post("/users/login/messages", (request, response) => {
 app.get("/users/login/messages", (request, response) => {
   const email = request.query.email;
   if (email) {
-    const res = users.filter((user) => user.email == email);
+    const res = users.filter((user) => user.email === email);
     return response.status(200).json(messages);
   }
+});
+
+//Atualização de recados
+app.put("/users/:messageId", (request, response) => {
+  const message = request.body;
+  const messageId = Number(request.params.messageId);
+  const indexMessage = messages.findIndex(
+    (message) => message.messageId === messageId
+  );
+  messages[indexMessage] = {
+    messageId: messageId,
+    title: message.title,
+    description: message.description,
+  };
+  return response.status(200).json(messages[indexMessage]);
 });
 
 app.get("/", (request, response) => {
