@@ -107,6 +107,11 @@ app.put("/users/:messageId", (request, response) => {
   const indexMessage = messages.findIndex(
     (message) => message.messageId === messageId
   );
+
+  if (indexMessage < 0 || indexMessage >= messages.length) {
+    return response.status(404).json("Recado não encontrado");
+  }
+
   messages[indexMessage] = {
     messageId: messageId,
     title: message.title,
