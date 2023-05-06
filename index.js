@@ -122,6 +122,10 @@ app.delete("/users/:messageId", (request, response) => {
     (message) => message.messageId === Number(messageId)
   );
 
+  if (indexMessage < 0 || indexMessage >= messages.length) {
+    return response.status(404).json("Recado não encontrado");
+  }
+
   messages.splice(indexMessage, 1);
   return response.status(200).json("Recado deletado com sucesso!");
 });
