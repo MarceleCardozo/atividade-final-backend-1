@@ -20,6 +20,8 @@ function validateEnteredDataForAccountCreation(request, response, next) {
 
 let users = [];
 
+let messages = [];
+
 //Criação de conta
 app.post(
   "/users",
@@ -64,6 +66,18 @@ app.post("/users/login", (request, response) => {
         .json("O endereço de email ou a senha que você inseriu não é válido");
     }
   });
+});
+
+
+//Criar recado
+app.post("/users/login/messages", (request, response) => {
+  const newMessage = request.body;
+  messages.push({
+    messageId: Math.floor(Math.random() * 5454),
+    title: newMessage.title,
+    description: newMessage.description,
+  });
+  return response.status(201).json("Recado criado com sucesso!");
 });
 
 app.get("/", (request, response) => {
