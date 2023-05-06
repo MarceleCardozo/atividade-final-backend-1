@@ -103,6 +103,17 @@ app.put("/users/:messageId", (request, response) => {
   return response.status(200).json(messages[indexMessage]);
 });
 
+//Deletar recados
+app.delete("/users/:messageId", (request, response) => {
+  const messageId = request.params.messageId;
+  const indexMessage = messages.findIndex(
+    (message) => message.messageId === Number(messageId)
+  );
+
+  messages.splice(indexMessage, 1);
+  return response.status(200).json("Recado deletado com sucesso!");
+});
+
 app.get("/", (request, response) => {
   return response.json("OK");
 });
