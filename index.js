@@ -45,6 +45,27 @@ app.post(
   }
 );
 
+//Login
+app.post("/users/login", (request, response) => {
+  const login = request.body;
+  const email = login.email;
+  const password = login.password;
+
+  const user = users.find((user) => user.email === email);
+  if (!user) {
+    return response.status(402).json("Por favor, digite um email válido!");
+  }
+  bcrypt.compare(password, user.password, function (err, result) {
+    if (result) {
+      return response.status(200).json("Usuário logado.");
+    } else {
+      return response
+        .status(402)
+        .json("O endereço de email ou a senha que você inseriu não é válido");
+    }
+  });
+});
+
 app.get("/", (request, response) => {
   return response.json("OK");
 });
