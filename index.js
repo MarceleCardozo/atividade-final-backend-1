@@ -18,6 +18,17 @@ function validateEnteredDataForAccountCreation(request, response, next) {
   }
 }
 
+//Middleware não ter mais de uma conta criada com o mesmo email
+function emailValidator(request, response, next) {
+  const email = request.body.email;
+
+  if (users.some((user) => user.email === email)) {
+    return response.status(402).json("O endereço de email digitado já existe!");
+  }
+
+  next();
+}
+
 let users = [];
 
 let messages = [];
@@ -26,6 +37,7 @@ let messages = [];
 app.post(
   "/users",
   validateEnteredDataForAccountCreation,
+  emailValidator,
   (request, response) => {
     const user = request.body;
     const saltRounds = 10;
