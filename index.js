@@ -105,10 +105,13 @@ app.post("/users/:id/messages", (request, response) => {
 app.get("/users/:id/messages", (request, response) => {
   const id = Number(request.params.id);
 
-  if (id) {
-    const idUsers = users.filter((user) => user.id === id);
-    return response.status(200).json(idUsers[0].messages);
+  const idUsers = users.filter((user) => user.id === id);
+
+  if (idUsers.length === 0) {
+    return response.status(404).json("Usuário não encontrado");
   }
+
+  return response.status(200).json(idUsers[0].messages);
 });
 
 //Atualização de recados
@@ -148,7 +151,7 @@ app.delete("/users/:id/messages/:messageId", (request, response) => {
   const messageId = Number(request.params.messageId);
 
   const idUsers = users.filter((user) => user.id === id);
-  
+
   if (idUsers.length === 0) {
     return response.status(404).json("Usuário não encontrado");
   }
