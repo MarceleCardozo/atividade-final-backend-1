@@ -6,13 +6,13 @@ A biblioteca bcrypt é utilizada para criptografar as senhas dos usuários antes
 
 O servidor responde às seguintes rotas:
 
-POST /users: Cria um novo usuário com o nome, email e senha fornecidos no corpo da requisição. A senha é criptografada antes de ser armazenada. O servidor verifica se o email fornecido já está sendo usado por outro usuário antes de criar a nova conta.
-GET /users: Retorna a lista de todos os usuários cadastrados no servidor.
-POST /users/login: Permite que um usuário faça login no servidor com seu email e senha. O servidor verifica se o email e senha fornecidos correspondem a um usuário cadastrado e, se sim, retorna um token de autenticação.
-POST /users/:id/messages: Cria uma nova mensagem para o usuário com o ID fornecido. A mensagem deve ter um título e uma descrição. O servidor verifica se o usuário com o ID fornecido existe antes de criar a mensagem.
-GET /users/:id/messages: Retorna a lista de mensagens do usuário com o ID fornecido.
-PUT /users/:id/messages/:messageId: Atualiza o título e/ou descrição da mensagem com o ID fornecido, pertencente ao usuário com o ID fornecido. O servidor verifica se o usuário e a mensagem existem antes de fazer a atualização.
-DELETE /users/:id/messages/:messageId: Deleta a mensagem com o ID fornecido, pertencente ao usuário com o ID fornecido. O servidor verifica se o usuário e a mensagem existem antes de fazer a deleção.
+- POST /users: Cria um novo usuário com o nome, email e senha fornecidos no corpo da requisição. A senha é criptografada antes de ser armazenada. O servidor verifica se o email fornecido já está sendo usado por outro usuário antes de criar a nova conta.
+- GET /users: Retorna a lista de todos os usuários cadastrados no servidor.
+- POST /users/login: Permite que um usuário faça login no servidor com seu email e senha. O servidor verifica se o email e senha fornecidos correspondem a um usuário cadastrado e, se sim, retorna um token de autenticação.
+- POST /users/:id/messages: Cria uma nova mensagem para o usuário com o ID fornecido. A mensagem deve ter um título e uma descrição. O servidor verifica se o usuário com o ID fornecido existe antes de criar a mensagem.
+- GET /users/:id/messages: Retorna a lista de mensagens do usuário com o ID fornecido.
+- PUT /users/:id/messages/:messageId: Atualiza o título e/ou descrição da mensagem com o ID fornecido, pertencente ao usuário com o ID fornecido. O servidor verifica se o usuário e a mensagem existem antes de fazer a atualização.
+- DELETE /users/:id/messages/:messageId: Deleta a mensagem com o ID fornecido, pertencente ao usuário com o ID fornecido. O servidor verifica se o usuário e a mensagem existem antes de fazer a deleção.
 
 O servidor é configurado para ouvir as requisições na porta 8080 e apresenta uma rota raiz ("/") que retorna a string "OK" para testar se o servidor está funcionando corretamente.
 
