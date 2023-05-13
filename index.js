@@ -110,23 +110,34 @@ app.get("/users/:id/messages", (request, response) => {
 });
 
 //Atualização de recados
-app.put("/users/:messageId", (request, response) => {
-  const message = request.body;
+app.put("/users/:id/messages/:messageId", (request, response) => {
+  const id = Number(request.params.id);
   const messageId = Number(request.params.messageId);
-  const indexMessage = messages.findIndex(
+
+  const idUsers = users.filter((user) => user.id === id);
+
+  if (idUsers.length === 0) {
+    return response.status(404).json("Usuário não encontrado.");
+  }
+
+  const message = idUsers[0].messages.find(
     (message) => message.messageId === messageId
   );
 
-  if (indexMessage < 0 || indexMessage >= messages.length) {
-    return response.status(404).json("Recado não encontrado");
+  if (!message) {
+    return response.status(404).json("Recado não encontrado.");
   }
 
-  messages[indexMessage] = {
-    messageId: messageId,
+  message.title = request.body.title;
+  message.description = request.body.description;
+
+  const updatedMessage = {
+    messageId: message.messageId,
     title: message.title,
     description: message.description,
   };
-  return response.status(200).json(messages[indexMessage]);
+
+  return response.status(200).json("Recado atualizado com sucesso!");
 });
 
 //Deletar recados
