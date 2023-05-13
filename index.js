@@ -100,11 +100,12 @@ app.post("/users/:id/messages", (request, response) => {
 });
 
 //Ler/listar recados
-app.get("/users/login/messages", (request, response) => {
-  const email = request.query.email;
-  if (email) {
-    const res = users.filter((user) => user.email === email);
-    return response.status(200).json(messages);
+app.get("/users/:id/messages", (request, response) => {
+  const id = Number(request.params.id);
+
+  if (id) {
+    const idUsers = users.filter((user) => user.id === id);
+    return response.status(200).json(idUsers[0].messages);
   }
 });
 
