@@ -84,14 +84,19 @@ app.post("/users/login", (request, response) => {
 });
 
 //Criar recado
-app.post("/users/login/messages", (request, response) => {
+app.post("/users/:id/messages", (request, response) => {
   const newMessage = request.body;
-  messages.push({
-    messageId: Math.floor(Math.random() * 5454),
-    title: newMessage.title,
-    description: newMessage.description,
-  });
-  return response.status(201).json("Recado criado com sucesso!");
+  const id = Number(request.params.id);
+
+  if (id) {
+    const idUsers = users.findIndex((user) => user.id === id);
+    users[idUsers].messages.push({
+      messageId: Math.floor(Math.random() * 5454),
+      title: newMessage.title,
+      description: newMessage.description,
+    });
+    return response.status(201).json("Recado criado com sucesso!");
+  }
 });
 
 //Ler/listar recados
