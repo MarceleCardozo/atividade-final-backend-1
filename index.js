@@ -74,7 +74,9 @@ app.post("/users/login", (request, response) => {
   }
   bcrypt.compare(password, user.password, function (err, result) {
     if (result) {
-      return response.status(200).json("Usuário logado.");
+      return response
+        .status(200)
+        .json({ message: "Usuário logado!", id: user.id });
     } else {
       return response
         .status(402)
