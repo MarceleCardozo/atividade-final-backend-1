@@ -28,10 +28,7 @@ function emailValidator(request, response, next) {
 
   next();
 }
-
 let users = [];
-
-let messages = [];
 
 //Criação de conta
 app.post(
@@ -50,6 +47,7 @@ app.post(
           name: user.name,
           email: user.email,
           password: hash,
+          messages: [],
         });
         return response.status(201).json("Conta criada com sucesso!");
       } else {
@@ -58,6 +56,11 @@ app.post(
     });
   }
 );
+
+//Leitura dos usuários para pegar o id
+app.get("/users", (request, response) => {
+  return response.status(200).json(users);
+});
 
 //Login
 app.post("/users/login", (request, response) => {
